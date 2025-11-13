@@ -1,3 +1,4 @@
+// src/RegisterProduct.jsx
 import React, { useState } from "react";
 import { client, MODULE_ADDRESS } from "./aptosClient";
 
@@ -38,21 +39,25 @@ export default function RegisterProduct({ address }) {
 
       await client.waitForTransaction(tx.hash);
 
-      // read next_id and compute token id
-      const nextRaw = await client.view({
-        function: `${MODULE_ADDRESS}::ProductAuth::get_next_id`,
-        type_arguments: [],
-        arguments: [ address ]
-      });
+      // --- NEW: read the Registry resource to get next_id ---
+      const resourceType = `${MODULE_ADDRESS}::ProductAuth::Registry`;
+      const resource = await client.getAccountResource(address, resourceType);
+      // resource.data.next_id should contain the next id; parse it safely
+      let nextId = 0;
+      if (resource && resource.data && resource.data.next_id !== undefined) {
+        // sometimes it's a string, sometimes number
+        nextId = Number(resource.data.next_id);
+      } else if (resource && resource.data && resource.data["next_id"]) {
+        nextId = Number(resource.data["next_id"]);
+      }
 
-      // normalize response
-      const nextId = (Array.isArray(nextRaw) ? Number(nextRaw[0]) : Number(nextRaw)) || 0;
       const tokenId = Math.max(0, nextId - 1);
-
       setStatus(`Registered! token_id = ${tokenId}`);
     } catch (err) {
       console.error(err);
-      setStatus("Error: " + (err?.message || JSON.stringify(err)));
+      // If it's an API error returned from node, try to show message
+      const msg = err?.response?.data?.message ?? err?.message ?? JSON.stringify(err);
+      setStatus("Error: " + msg);
     }
   }
 
