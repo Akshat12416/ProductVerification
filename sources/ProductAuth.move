@@ -25,7 +25,8 @@ module ProductAuth::ProductAuth {
     }
 
     /// Register a product for the signer (manufacturer).
-    public fun register_product(account: &signer, name: vector<u8>, metadata: vector<u8>) {
+    /// **Made an entry function so it can be called by transactions.**
+    public entry fun register_product(account: &signer, name: vector<u8>, metadata: vector<u8>) {
         let addr = signer::address_of(account);
         if (!exists<Registry>(addr)) {
             init_registry(account);
