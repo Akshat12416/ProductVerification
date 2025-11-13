@@ -4,6 +4,7 @@ version = "1.0.0"
 authors = []
 
 [addresses]
+ProductAuth = "0xc462e1b0a7c1911c2d41b63b67428ef3d96c4e27a06210942bf0bcf91bbd9bec"
 
 [dev-addresses]
 
