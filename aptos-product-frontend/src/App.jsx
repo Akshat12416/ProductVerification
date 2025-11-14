@@ -815,6 +815,176 @@ function VerifyProduct() {
   );
 }
 
+// About/How It Works Component
+function About() {
+  const features = [
+    {
+      icon: "📱",
+      title: "Tiny NFC in every genuine unit",
+      desc: "Embed a tiny RFID/NFC chip at manufacturing so each item gets a unique hardware identity."
+    },
+    {
+      icon: "🔐",
+      title: "Secured on blockchain",
+      desc: "Bind that chip's UID to an immutable on-chain record—creating an unchangeable digital ID."
+    },
+    {
+      icon: "👆",
+      title: "Tap to verify",
+      desc: "Consumers simply tap with an NFC-enabled phone—no app needed—to get instant, on-chain proof."
+    },
+    {
+      icon: "🔧",
+      title: "Component-level checks",
+      desc: "Support part-by-part verification: verify internal components inside complex devices."
+    },
+    {
+      icon: "🎨",
+      title: "NFT ownership",
+      desc: "Each product can carry an NFT certificate enabling verified resale and transfers."
+    },
+    {
+      icon: "⚠️",
+      title: "Revoke fakes in real time",
+      desc: "Manufacturers can revoke a counterfeit tag immediately and warn future buyers."
+    }
+  ];
+
+  return (
+    <div style={{
+      background: "linear-gradient(180deg, #ffffff 0%, #f9fafb 100%)",
+      padding: "100px 24px"
+    }}>
+      <div style={{
+        maxWidth: 1200,
+        margin: "0 auto"
+      }}>
+        <div style={{
+          textAlign: "center",
+          marginBottom: 80
+        }}>
+          <h2 style={{
+            fontSize: "clamp(2rem, 4vw, 3rem)",
+            fontWeight: 800,
+            color: "#111827",
+            marginBottom: 16,
+            letterSpacing: "-1px"
+          }}>
+            How It Works
+          </h2>
+          <p style={{
+            fontSize: 18,
+            color: "#6b7280",
+            maxWidth: 600,
+            margin: "0 auto"
+          }}>
+            A seamless authentication system powered by NFC technology and blockchain security
+          </p>
+        </div>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          gap: 32
+        }}>
+          {features.map((feature, i) => (
+            <div
+              key={i}
+              style={{
+                background: "linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)",
+                border: "1px solid #e5e7eb",
+                borderRadius: 24,
+                padding: 32,
+                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                cursor: "pointer"
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = "translateY(-12px)";
+                e.currentTarget.style.boxShadow = "0 20px 40px rgba(0, 0, 0, 0.12)";
+                e.currentTarget.style.borderColor = "#3b82f6";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 4px 20px rgba(0, 0, 0, 0.05)";
+                e.currentTarget.style.borderColor = "#e5e7eb";
+              }}
+            >
+              <div style={{
+                fontSize: 48,
+                marginBottom: 20,
+                display: "inline-block",
+                background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
+                padding: 16,
+                borderRadius: 16,
+                lineHeight: 1
+              }}>
+                {feature.icon}
+              </div>
+              <h3 style={{
+                fontSize: 20,
+                fontWeight: 700,
+                color: "#111827",
+                marginBottom: 12,
+                lineHeight: 1.3
+              }}>
+                {feature.title}
+              </h3>
+              <p style={{
+                fontSize: 15,
+                color: "#6b7280",
+                lineHeight: 1.7,
+                margin: 0
+              }}>
+                {feature.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Stats Section */}
+        <div style={{
+          marginTop: 100,
+          padding: "60px 40px",
+          background: "linear-gradient(135deg, #111827 0%, #374151 100%)",
+          borderRadius: 32,
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: 48,
+          textAlign: "center"
+        }}>
+          {[
+            { number: "99.9%", label: "Authentication Accuracy" },
+            { number: "<1s", label: "Verification Time" },
+            { number: "∞", label: "Blockchain Security" }
+          ].map((stat, i) => (
+            <div key={i}>
+              <div style={{
+                fontSize: 48,
+                fontWeight: 800,
+                color: "white",
+                marginBottom: 8,
+                background: "linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent"
+              }}>
+                {stat.number}
+              </div>
+              <div style={{
+                fontSize: 16,
+                color: "#9ca3af",
+                fontWeight: 500
+              }}>
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Main App Component
 export default function App() {
   const [address, setAddress] = useState(null);
@@ -843,6 +1013,10 @@ export default function App() {
           from { opacity: 0; transform: translateY(-5px); }
           to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
         * { box-sizing: border-box; }
         body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
       `}</style>
@@ -854,7 +1028,10 @@ export default function App() {
       />
 
       {page === "landing" && (
-        <LandingPage onStart={() => setPage("register")} />
+        <div>
+          <LandingPage onStart={() => setPage("register")} />
+          <About />
+        </div>
       )}
 
       {page === "register" && (
