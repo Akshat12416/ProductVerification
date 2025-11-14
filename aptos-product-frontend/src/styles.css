@@ -1,20 +1,25 @@
-:root{
-  --bg:#f7fafc;
-  --card:#ffffff;
-  --muted:#6b7280;
-  --accent:#2563eb;
+/* landing helpers */
+.landing-hero { min-height: 72vh; display: flex; align-items: center; }
+.primary-cta {
+  background: #0f1724;
+  color: white;
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(15,23,42,0.08);
 }
-body{ background:var(--bg); margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:#111827;}
-.container{ max-width:960px; margin:36px auto; padding:16px; }
-.header{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
-.header h1{ margin:0; font-size:20px; }
-.wallet .btn{ padding:8px 12px; border:0; background:var(--accent); color:#fff; border-radius:8px; cursor:pointer; }
-.nav{ margin-top:18px; display:flex; gap:8px; }
-.tab{ padding:8px 12px; border-radius:8px; border:1px solid #e5e7eb; background:#fff; cursor:pointer; }
-.main{ margin-top:20px; }
-.card{ background:var(--card); padding:18px; border-radius:10px; box-shadow:0 6px 18px rgba(15,23,42,0.06); }
-.form{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
-input{ padding:10px 12px; border-radius:8px; border:1px solid #e5e7eb; font-size:14px; }
-.btn{ padding:10px 12px; border-radius:8px; border:0; background:var(--accent); color:#fff; cursor:pointer; }
-.status{ margin-top:12px; color:var(--muted); white-space:pre-wrap; }
-.connected code{ background:#f3f4f6; padding:6px 8px; border-radius:6px; font-size:13px; }
+.secondary-cta {
+  background: transparent;
+  color: #0f1724;
+  padding: 12px 20px;
+  border-radius: 14px;
+  font-weight: 650;
+  border: 1px solid #e6eefc;
+  cursor: pointer;
+}
+.carousel-desktop { display: block; }
+@media (max-width: 1024px) {
+  .carousel-desktop { display: none; }
+}
